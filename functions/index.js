@@ -7,28 +7,44 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://weatherpicker-default-rtdb.firebaseio.com'
 })
-const fstore = admin.firestore()
+
+const db = admin.firestore()
+const colKeys = db.collection('keys')
+const colUsers = db.collection('users')
+
+async function getKey () {
+  const keyArray = []
+  const keys = await colKeys.get()
+  keys.forEach((key) => {
+    keyArray.push(key.data())
+  })
+  return keyArray
+}
 
 exports.getApi = functions.https.onRequest(async (req, res) => {
   const uuid = req.query.uuid
   try {
-    const user = await fstore.collection('users').where('uuid', '==', uuid).get()
-    if (user.empty) {
-      res.sendStatus(400)
-      return
-    }
-    const rtUser = []
-    user.forEach((doc) => {
-      rtUser.push(doc.data())
-    })
-    const rtKey = []
-    const keys = await fstore.collection('keys').get()
-    keys.forEach((key) => {
-      rtKey.push({ id: key.id, key: key.data() })
-    })
-    res.status(200).json({ user: rtUser[0], keys: rtKey })
+    const user = await colUsers.where('uuid', '==', uuid).get()
+    const uid = user._docs()[0].id
+    const userValue = await user._docs()[0].data()
+    if (user.empty) return res.sendStatus(401)
+    if (userValue.enable) return res.sendStatus(403)
+    const keys = await getKey()
+    const calls = userValue.calls + 1
+    colUsers.doc(uid).set({ calls: calls }, { merge: true })
+    return res.status(200).json({ user: userValue, keys: keys })
   } catch (err) {
-    res.sendStatus(500)
+    return res.status(500).json({ error: err })
   }
-  res.send(uuid)
+})
+
+exports.createUser = functions.auth.user().onCreate(async (user) => {
+  const { uid, email, displayName, photoURL } = user
+  const u = {
+    email,
+    displayName,
+    photoURL,
+    uuid: '543b2f24-8c53-11eb-8dcd-0242ac130003'
+  }
+  db.ref('users').child(uid).set(u)
 })
