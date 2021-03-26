@@ -1,6 +1,8 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 
+const { v4: uuidv4 } = require('uuid')
+
 const serviceAccount = require('./adminkey.json')
 
 admin.initializeApp({
@@ -28,7 +30,7 @@ exports.getApi = functions.https.onRequest(async (req, res) => {
     const uid = user._docs()[0].id
     const userValue = await user._docs()[0].data()
     if (user.empty) return res.sendStatus(401)
-    if (userValue.enable) return res.sendStatus(403)
+    if (!userValue.enable) return res.sendStatus(403)
     const keys = await getKey()
     const calls = userValue.calls + 1
     colUsers.doc(uid).set({ calls: calls }, { merge: true })
@@ -40,11 +42,15 @@ exports.getApi = functions.https.onRequest(async (req, res) => {
 
 exports.createUser = functions.auth.user().onCreate(async (user) => {
   const { uid, email, displayName, photoURL } = user
+  const userUuid = uuidv4()
   const u = {
     email,
     displayName,
     photoURL,
-    uuid: '543b2f24-8c53-11eb-8dcd-0242ac130003'
+    calls: 0,
+    level: 5,
+    enable: false,
+    uuid: userUuid
   }
-  db.ref('users').child(uid).set(u)
+  colUsers.doc(uid).set(u)
 })

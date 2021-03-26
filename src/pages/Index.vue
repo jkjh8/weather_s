@@ -1,5 +1,7 @@
 <template>
   <q-page class="flex flex-center">
+    <router-link to="/login">Login</router-link>
+    <router-link to="/register">Register</router-link>
     <!-- <div>원본:{{ pass }}</div>
     <div>암호:{{ encodePass }}</div>
     <div>복호:{{ decodePass }}</div>
@@ -13,9 +15,9 @@
       <q-input style="width: 500px" v-model="value"></q-input>
       <q-btn>update</q-btn>
     </div> -->
-    <div class="main flex flex-center">
+    <!-- <div class="main flex flex-center">
       <div class="text-h3 text-bold text-white">Weather Picker</div>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
@@ -33,9 +35,8 @@ export default {
       value: ''
     }
   },
-  mounted () {
-    console.log(this.$firebase)
-    console.log(this.$firebase.database)
+  async mounted () {
+    await this.$firebase.auth().currentUser
   },
   methods: {
     encode () {
