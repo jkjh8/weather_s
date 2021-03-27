@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     logo () {
-      console.log('logo')
       if (this.$store.state.user.user) {
         this.$router.push('/info')
       } else {

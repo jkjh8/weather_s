@@ -104,7 +104,7 @@ export default {
       const provider = new this.$firebase.auth.GoogleAuthProvider()
       this.$firebase.auth().languageCode = 'ko'
       try {
-        const result = await this.$firebase.auth().signInWithPopup(provider)
+        await this.$firebase.auth().signInWithPopup(provider)
         this.$router.push('/')
       } catch (err) {
         this.hideLoading()
