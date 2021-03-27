@@ -1,6 +1,6 @@
 <template>
   <q-page class="align-center">
-    <q-card style="min-width: 400px">
+    <q-card flat style="min-width: 400px">
       <q-card-section>
         <div class="text-h6">
           <q-icon class="q-mr-sm" size="md" color="teal" name="assignment_ind" />
