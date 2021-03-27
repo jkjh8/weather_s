@@ -31,9 +31,7 @@ function decode (data) {
 }
 
 exports.getApi = functions.https.onRequest(async (req, res) => {
-  console.log(req.query.uuid)
   const uid = decode(req.query.uuid)
-  console.log(uid)
   try {
     const user = await colUsers.doc(uid).get()
     const userValue = await user.data()
