@@ -1,9 +1,9 @@
 {
   "name": "weather_s",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
-  "author": "jkjh8 <jkjh82@naver.com>",
+  "description": "Weater Picker Auth Server",
+  "productName": "Weather Picker",
+  "author": "jkjh8 <jkjh82@gmail.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",

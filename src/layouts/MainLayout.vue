@@ -37,6 +37,17 @@
                   </q-avatar>
                   <div class="q-mt-sm text-bold">{{ user.displayName }}</div>
                   <div class="q-mt-sm text-caption">{{ user.email }}</div>
+                  <div
+                    v-if="currentUser && !currentUser.emailVerified"
+                  >
+                    <q-btn
+                      class="q-mt-md"
+                      flat
+                      @click="sendMail"
+                    >
+                      인증 메일 재발송
+                    </q-btn>
+                  </div>
                 </q-card-section>
                 <q-separator />
                 <q-card-section class="text-center">
@@ -57,23 +68,26 @@
 
 <script>
 import { mapState } from 'vuex'
+import notify from '../mixins/notify'
+import errors from '../mixins/errors'
 
 export default {
   name: 'MainLayout',
+  mixins: [errors, notify],
   computed: {
     ...mapState({
       user: state => state.user.user
     })
   },
-  async beforeCreate () {
+  async created () {
     this.$firebase.auth().onAuthStateChanged(async (user) => {
-      let result = null
+      this.currentUser = user
       if (user) {
-        result = await this.$firebase.firestore().collection('users').doc(user.uid).get()
-        result = result.data()
-        this.$store.commit('user/updateUser', result)
+        this.verified()
+        this.getUserData()
       } else {
-        this.$store.commit('user/updateUser', result)
+        this.$store.commit('user/updateUser', null)
+        this.$store.commit('user/updateVerify', false)
         if (this.$route.path !== '/') this.$router.push('/')
       }
     })
@@ -81,14 +95,38 @@ export default {
   },
   data () {
     return {
-    //
+      currentUser: null
     }
   },
   methods: {
+    async getUserData () {
+      const u = await this.$firebase.firestore().collection('users').doc(this.currentUser.uid).get()
+      const ud = await u.data()
+      if (ud) {
+        this.$store.commit('user/updateUser', ud)
+      } else {
+        this.userDbError()
+      }
+    },
     async logout () {
       await this.$firebase.auth().signOut()
       this.$store.commit('user/updateUser', null)
       console.log('logout', this.user)
+    },
+    verified () {
+      if (this.currentUser.emailVerified) {
+        this.$store.commit('user/updateVerify', true)
+      } else {
+        this.userNotVerified()
+        this.$store.commit('user/updateVerify', false)
+      }
+    },
+    sendMail () {
+      this.currentUser.sendEmailVerification().then(() => {
+        this.sendEmailNoti()
+      }).catch((err) => {
+        console.log('err send mail', err)
+      })
     }
   }
 }

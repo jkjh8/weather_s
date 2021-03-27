@@ -38,6 +38,28 @@ export default {
           })
           break
       }
+    },
+    userDbError () {
+      this.$q.notify({
+        timeout: 1000,
+        color: 'negative',
+        message: '사용자 계정 정보에 문제가 있어 불러 올수 없습니다.',
+        caption: '관리자에게 문의하세요.',
+        icon: 'report_problem',
+        position: 'center',
+        actions: [{ icon: 'close', color: 'white' }]
+      })
+    },
+    userNotVerified () {
+      this.$q.notify({
+        timeout: 1000,
+        color: 'negative',
+        message: '인증되지 않은 사용자 입니다.',
+        caption: '이메일 인증이 완료되지 않았습니다.',
+        icon: 'report_problem',
+        position: 'center',
+        actions: [{ icon: 'close', color: 'white' }]
+      })
     }
   }
 }

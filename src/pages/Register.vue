@@ -76,9 +76,10 @@
 
 <script>
 import userFunc from '../mixins/user'
+import notify from '../mixins/notify'
 
 export default {
-  mixins: [userFunc],
+  mixins: [userFunc, notify],
   data () {
     return {
       isPwd: true,
@@ -105,18 +106,18 @@ export default {
       this.chkPassword = ''
       this.displayName = ''
 
-      // this.$refs.email.resetValidation()
-      // this.$refs.password.resetValidation()
-      // this.$refs.chkPassword.resetValidation()
-      // this.$refs.displayName.resetValidation()
+      this.$refs.email.resetValidation()
+      this.$refs.password.resetValidation()
+      this.$refs.chkPassword.resetValidation()
+      this.$refs.displayName.resetValidation()
     },
     async onSubmit () {
       this.showLoading()
       try {
         const user = await this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-        console.log(user, user.user)
         await user.user.updateProfile({ displayName: this.displayName })
         await this.$firebase.firestore().collection('users').doc(user.user.uid).set({ displayName: this.displayName }, { merge: true })
+        this.sendMail(user.user)
         this.$router.push('/')
       } catch (err) {
         this.hideLoading()
@@ -130,6 +131,13 @@ export default {
         }
         console.log('auth err: ', err)
       }
+    },
+    sendMail (user) {
+      user.sendEmailVerification().then(() => {
+        this.sendEmailNoti()
+      }).catch((err) => {
+        console.log('err send mail', err)
+      })
     }
   }
 }

@@ -108,6 +108,7 @@ export default {
         console.log(result)
         this.$router.push('/')
       } catch (err) {
+        this.hideLoading()
         this.loginError(err)
       }
     }
