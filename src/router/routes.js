@@ -29,10 +29,17 @@ const routes = [
     ]
   },
   {
-    path: '/admin',
+    path: '/users',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Admin.vue') }
+      { path: '', component: () => import('src/pages/Users.vue') }
+    ]
+  },
+  {
+    path: '/keys',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/Keys.vue') }
     ]
   },
 
