@@ -1,7 +1,19 @@
 <template>
   <q-page class="flex flex-center">
-    <router-link to="/login">Login</router-link>
-    <router-link to="/register">Register</router-link>
+    <div style="position: relative; bottom: 100px; right: 80px;" @click="logo">
+      <q-icon style="position: absolute;" size="200px" name="cloud" color="teal"></q-icon>
+      <span >
+        <div
+          class="text-h6"
+          style="position: absolute; top: 30px; left: 120px;">
+          Weather
+        </div>
+        <div
+          style="position: absolute; top: 55px; left: 140px;">Picker</div>
+      </span>
+    </div>
+    <!-- <router-link to="/login">Login</router-link>
+    <router-link to="/register">Register</router-link> -->
     <!-- <div>원본:{{ pass }}</div>
     <div>암호:{{ encodePass }}</div>
     <div>복호:{{ decodePass }}</div>
@@ -36,7 +48,7 @@ export default {
     }
   },
   async mounted () {
-    await this.$firebase.auth().currentUser
+    // await this.$firebase.auth().currentUser
   },
   methods: {
     encode () {
@@ -53,6 +65,14 @@ export default {
         uuid: '543b2f24-8c53-11eb-8dcd-0242ac130003',
         call: 0
       })
+    },
+    logo () {
+      console.log('logo')
+      if (this.$store.state.user.user) {
+        this.$router.push('/info')
+      } else {
+        this.$router.push('/login')
+      }
     }
   }
 }

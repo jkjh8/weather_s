@@ -6,7 +6,7 @@
         <div class="text-h6 text-bold">로그인</div>
       </q-card-section>
       <q-separator />
-      <q-card-section class="row items-center">
+      <q-card-section class="row items-center q-ma-none">
         <q-btn
           class="full-width"
           flat
@@ -18,7 +18,6 @@
           <span class="text-subtitle1">구글로 로그인</span>
         </q-btn>
       </q-card-section>
-      <q-separator />
       <q-form
         @submit.prevent.stop="onSubmit"
         @reset="onReset"
