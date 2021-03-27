@@ -64,10 +64,11 @@
 <script>
 import userFunc from '../mixins/user'
 import errors from '../mixins/errors'
+import loads from '../mixins/loads'
 
 export default {
   name: 'Login',
-  mixins: [userFunc, errors],
+  mixins: [userFunc, errors, loads],
   data () {
     return {
       isPwd: true,
@@ -104,7 +105,8 @@ export default {
       const provider = new this.$firebase.auth.GoogleAuthProvider()
       this.$firebase.auth().languageCode = 'ko'
       try {
-        await this.$firebase.auth().signInWithPopup(provider)
+        const u = await this.$firebase.auth().signInWithPopup(provider)
+        this.getUserData(u.user.uid)
         this.$router.push('/')
       } catch (err) {
         this.hideLoading()

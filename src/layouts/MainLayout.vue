@@ -73,10 +73,11 @@
 import { mapState } from 'vuex'
 import notify from '../mixins/notify'
 import errors from '../mixins/errors'
+import user from '../mixins/user'
 
 export default {
   name: 'MainLayout',
-  mixins: [errors, notify],
+  mixins: [errors, notify, user],
   computed: {
     ...mapState({
       user: state => state.user.user
@@ -87,7 +88,7 @@ export default {
       this.currentUser = user
       if (user) {
         this.verified()
-        this.getUserData()
+        this.getUserData(user.uid)
       } else {
         this.$store.commit('user/updateUser', null)
         this.$store.commit('user/updateVerify', false)
@@ -102,15 +103,6 @@ export default {
     }
   },
   methods: {
-    async getUserData () {
-      const u = await this.$firebase.firestore().collection('users').doc(this.currentUser.uid).get()
-      const ud = await u.data()
-      if (ud) {
-        this.$store.commit('user/updateUser', ud)
-      } else {
-        // this.userDbError()
-      }
-    },
     async logout () {
       await this.$firebase.auth().signOut()
       this.$store.commit('user/updateUser', null)

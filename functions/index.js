@@ -1,7 +1,6 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-
-const { v4: uuidv4 } = require('uuid')
+const Crypto = require('crypto-js')
 
 const serviceAccount = require('./adminkey.json')
 
@@ -23,12 +22,21 @@ async function getKey () {
   return keyArray
 }
 
+function encode (data) {
+  return Crypto.AES.encrypt(data, 'password').toString()
+}
+
+function decode (data) {
+  return Crypto.AES.decrypt(data, 'password').toString(Crypto.enc.Utf8)
+}
+
 exports.getApi = functions.https.onRequest(async (req, res) => {
-  const uuid = req.query.uuid
+  console.log(req.query.uuid)
+  const uid = decode(req.query.uuid)
+  console.log(uid)
   try {
-    const user = await colUsers.where('uuid', '==', uuid).get()
-    const uid = user._docs()[0].id
-    const userValue = await user._docs()[0].data()
+    const user = await colUsers.doc(uid).get()
+    const userValue = await user.data()
     if (user.empty) return res.sendStatus(401)
     if (!userValue.enable) return res.sendStatus(403)
     const keys = await getKey()
@@ -42,7 +50,7 @@ exports.getApi = functions.https.onRequest(async (req, res) => {
 
 exports.createUser = functions.auth.user().onCreate(async (user) => {
   const { uid, email, displayName, photoURL } = user
-  const userUuid = uuidv4()
+  const uuid = encode(uid)
   const u = {
     email,
     displayName,
@@ -50,7 +58,7 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
     calls: 0,
     level: 5,
     enable: false,
-    uuid: userUuid
+    uuid: uuid
   }
   colUsers.doc(uid).set(u)
 })

@@ -77,10 +77,13 @@
 
 <script>
 import userFunc from '../mixins/user'
+import loads from '../mixins/loads'
 import notify from '../mixins/notify'
 
+import Crypto from 'crypto-js'
+
 export default {
-  mixins: [userFunc, notify],
+  mixins: [userFunc, notify, loads],
   data () {
     return {
       isPwd: true,
@@ -127,6 +130,8 @@ export default {
         const user = await this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
         user.user.updateProfile({ displayName: this.displayName })
         this.updateProfile(user.user.uid, this.displayName)
+        this.getUserData(user.user.uid)
+        this.decode(user.user.uid)
         this.sendMail(user.user)
         setTimeout(() => {
           this.$router.push('/')
@@ -151,6 +156,10 @@ export default {
       // .catch((err) => {
       //   console.log('err send mail', err)
       // })
+    },
+    decode (data) {
+      const result = Crypto.AES.decrypt(data, 'password').toString(Crypto.enc.Utf8)
+      console.log('uuid', result)
     }
   }
 }
