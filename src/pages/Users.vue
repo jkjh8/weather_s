@@ -65,7 +65,6 @@ export default {
     this.db = this.$firebase.firestore().collection('users')
     await this.getUserInfo()
     this.hideLoading()
-    console.log(this.data)
   },
   methods: {
     async getUserInfo () {
@@ -80,12 +79,11 @@ export default {
     async enable (uid, value) {
       this.db.doc(uid).set({ enable: value }, { merge: true })
         .then(res => {
-          console.log('db updated!')
           this.getUserInfo()
         })
-        .catch(err => {
-          console.log('db update err', err)
-        })
+        // .catch(err => {
+        //   console.log(err)
+        // })
     }
   }
 }

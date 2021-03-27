@@ -114,7 +114,6 @@ export default {
     async logout () {
       await this.$firebase.auth().signOut()
       this.$store.commit('user/updateUser', null)
-      console.log('logout', this.user)
     },
     verified () {
       if (this.currentUser.emailVerified) {
@@ -127,9 +126,10 @@ export default {
     sendMail () {
       this.currentUser.sendEmailVerification().then(() => {
         this.sendEmailNoti()
-      }).catch((err) => {
-        console.log('err send mail', err)
       })
+      // .catch((err) => {
+      //   console.log('err send mail', err)
+      // })
     }
   }
 }

@@ -88,7 +88,6 @@ export default {
       try {
         const user = await this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         if (user) {
-          console.log(user)
           this.$router.push('/')
         }
       } catch (err) {
@@ -97,7 +96,8 @@ export default {
       }
     },
     onReset () {
-      console.log('reset')
+      this.email = ''
+      this.password = ''
     },
     async loginWithGoogle () {
       this.showLoading()
@@ -105,7 +105,6 @@ export default {
       this.$firebase.auth().languageCode = 'ko'
       try {
         const result = await this.$firebase.auth().signInWithPopup(provider)
-        console.log(result)
         this.$router.push('/')
       } catch (err) {
         this.hideLoading()

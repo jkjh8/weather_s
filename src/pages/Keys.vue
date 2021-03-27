@@ -62,7 +62,6 @@ export default {
     this.db = this.$firebase.firestore().collection('keys')
     await this.getKeys()
     this.hideLoading()
-    console.log(this.data)
   },
   methods: {
     async getKeys () {

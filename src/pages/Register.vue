@@ -113,14 +113,13 @@ export default {
       this.$refs.displayName.resetValidation()
     },
     updateProfile (uid, displayName) {
-      console.log(uid, displayName)
       this.$firebase.firestore().collection('users').doc(uid).set({ displayName: displayName }, { merge: true })
         .then(() => {
-          console.log('Document successfully written!')
+          // console.log('Document successfully written!')
         })
-        .catch((error) => {
-          console.error('Error writing document: ', error)
-        })
+        // .catch((error) => {
+        //   console.error('Error writing document: ', error)
+        // })
     },
     async onSubmit () {
       this.showLoading()
@@ -142,15 +141,16 @@ export default {
             position: 'center'
           })
         }
-        console.log('auth err: ', err)
+        // console.log('auth err: ', err)
       }
     },
     sendMail (user) {
       user.sendEmailVerification().then(() => {
         this.sendEmailNoti()
-      }).catch((err) => {
-        console.log('err send mail', err)
       })
+      // .catch((err) => {
+      //   console.log('err send mail', err)
+      // })
     }
   }
 }
