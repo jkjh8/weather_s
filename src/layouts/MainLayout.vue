@@ -105,7 +105,7 @@ export default {
       if (ud) {
         this.$store.commit('user/updateUser', ud)
       } else {
-        this.userDbError()
+        // this.userDbError()
       }
     },
     async logout () {

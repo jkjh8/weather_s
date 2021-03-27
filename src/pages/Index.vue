@@ -47,9 +47,6 @@ export default {
       value: ''
     }
   },
-  async mounted () {
-    // await this.$firebase.auth().currentUser
-  },
   methods: {
     encode () {
       this.encodePass = Crypto.AES.encrypt(this.pass, this.key).toString()

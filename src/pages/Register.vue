@@ -69,6 +69,7 @@
             <q-btn class="q-ml-sm" flat label="Clear" type="reset" color="primary"/>
           </q-card-actions>
         </q-card>
+        <!-- <q-btn @click="update">update</q-btn> -->
       </q-form>
     </div>
   </q-page>
@@ -111,14 +112,26 @@ export default {
       this.$refs.chkPassword.resetValidation()
       this.$refs.displayName.resetValidation()
     },
+    updateProfile (uid, displayName) {
+      console.log(uid, displayName)
+      this.$firebase.firestore().collection('users').doc(uid).set({ displayName: displayName }, { merge: true })
+        .then(() => {
+          console.log('Document successfully written!')
+        })
+        .catch((error) => {
+          console.error('Error writing document: ', error)
+        })
+    },
     async onSubmit () {
       this.showLoading()
       try {
         const user = await this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-        await user.user.updateProfile({ displayName: this.displayName })
-        await this.$firebase.firestore().collection('users').doc(user.user.uid).set({ displayName: this.displayName }, { merge: true })
+        user.user.updateProfile({ displayName: this.displayName })
+        this.updateProfile(user.user.uid, this.displayName)
         this.sendMail(user.user)
-        this.$router.push('/')
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 2000)
       } catch (err) {
         this.hideLoading()
         if (err.code === 'auth/email-already-in-use') {
