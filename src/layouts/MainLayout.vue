@@ -8,18 +8,27 @@
             <span>Weather Picker</span>
           </q-btn>
         </q-toolbar-title>
+
+        <div v-if="user&&user.level === 0">
+          <q-btn flat to="/station">Station</q-btn>
+        </div>
+
         <div v-if="user&&user.level === 0">
           <q-btn flat to="/keys">Api Key</q-btn>
         </div>
+
         <div v-if="user&&user.level === 0">
           <q-btn flat to="/Users">Users</q-btn>
         </div>
+
         <div v-if="user">
           <q-btn flat to="/info">Info</q-btn>
         </div>
+
         <div v-if="!user" class="q-ma-md" >
           <q-btn color="blue" to="/login">Login</q-btn>
         </div>
+
         <div v-else class="q-ma-md" >
           <q-btn flat round>
             <q-avatar v-if="user.photoURL">

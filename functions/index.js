@@ -17,7 +17,8 @@ async function getKey () {
   const keyArray = []
   const keys = await colKeys.get()
   keys.forEach((key) => {
-    keyArray.push(key.data())
+    const rtValue = { id: key.id, key: key.data() }
+    keyArray.push(rtValue)
   })
   return keyArray
 }
