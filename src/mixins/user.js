@@ -5,8 +5,8 @@ export default {
       return re.test(email)
     },
     async getUserData (uid) {
-      const u = await this.$firebase.firestore().collection('users').doc(uid).get()
-      const ud = await u.data()
+      const u = await this.$firebase.database().ref('users').child(uid).get()
+      const ud = await u.val()
       if (ud) {
         this.$store.commit('user/updateUser', ud)
       } else {

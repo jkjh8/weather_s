@@ -62,22 +62,23 @@ export default {
   },
   async mounted () {
     this.showLoading()
-    this.db = this.$firebase.firestore().collection('users')
+    this.db = this.$firebase.database()
     await this.getUserInfo()
     this.hideLoading()
   },
   methods: {
     async getUserInfo () {
       this.data = []
-      const users = await this.db.get()
+      const users = await this.db.ref('users').get()
       users.forEach(user => {
-        const u = user.data()
-        u.id = user.id
+        const u = user.val()
+        u.id = user.key
         this.data.push(u)
       })
     },
     async enable (uid, value) {
-      this.db.doc(uid).set({ enable: value }, { merge: true })
+      console.log(uid)
+      this.db.ref('users').child(uid).update({ enable: value })
         .then(res => {
           this.getUserInfo()
         })

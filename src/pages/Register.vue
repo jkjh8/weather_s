@@ -116,13 +116,13 @@ export default {
       this.$refs.displayName.resetValidation()
     },
     updateProfile (uid, displayName) {
-      this.$firebase.firestore().collection('users').doc(uid).set({ displayName: displayName }, { merge: true })
+      this.$firebase.database().ref('users').child(uid).update({ displayName: displayName })
         .then(() => {
-          // console.log('Document successfully written!')
+          console.log('Document successfully written!')
         })
-        // .catch((error) => {
-        //   console.error('Error writing document: ', error)
-        // })
+        .catch((error) => {
+          console.error('Error writing document: ', error)
+        })
     },
     async onSubmit () {
       this.showLoading()

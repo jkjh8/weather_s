@@ -59,26 +59,29 @@ export default {
   },
   async mounted () {
     this.showLoading()
-    this.db = this.$firebase.firestore().collection('keys')
+    this.db = this.$firebase.database()
     await this.getKeys()
     this.hideLoading()
   },
   methods: {
     async getKeys () {
-      const d = await this.db.doc('data').get()
-      const k = await this.db.doc('kakao').get()
-      const data = d.data()
-      this.datakey = data.key
-      const kakao = k.data()
-      this.kakaoRest = kakao.rest
-      this.kakaoJs = kakao.js
+      const d = await this.db.ref('keys').child('data').get()
+      const k = await this.db.ref('keys').child('kakao').get()
+      console.log(d)
+      if (d.exists() && k.exists()) {
+        const data = d.val()
+        this.datakey = data.key
+        const kakao = k.val()
+        this.kakaoRest = kakao.rest
+        this.kakaoJs = kakao.js
+      }
     },
     async submit () {
       const d = await this.encode(this.datakey)
       const kr = await this.encode(this.kakaoRest)
       const kj = await this.encode(this.kakaoJs)
-      await this.db.doc('data').set({ key: d }, { merge: true })
-      await this.db.doc('kakao').set({ rest: kr, js: kj }, { merge: true })
+      await this.db.ref('keys').child('data').update({ key: d })
+      await this.db.ref('keys').child('kakao').update({ rest: kr, js: kj })
       this.getKeys()
     },
     clear () {
