@@ -4,16 +4,15 @@ const cors = require('cors')({ origin: true })
 const Crypto = require('crypto-js')
 
 const serviceAccount = require('./adminkey.json')
+// const request = require('request')
+const { default: axios } = require('axios')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://weatherpicker-default-rtdb.firebaseio.com'
 })
 
-// const db = admin.firestore()
 const db = admin.database()
-// const colKeys = db.collection('keys')
-// const colUsers = db.collection('users')
 
 async function getKey () {
   const keyArray = []
@@ -102,4 +101,17 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
   }
   // colUsers.doc(uid).set(u)
   db.ref('users').child(uid).update(u)
+})
+
+exports.scheduledFunction = functions.pubsub.schedule('16 * * * *').timeZone('Asia/Seoul').onRun(async (context) => {
+  const k = await db.ref('keys').child('data').child('key').get()
+  const dataKey = decode(k.val())
+  const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?ServiceKey=${dataKey}&returnType=json&numOfRows=1000&pageNo=1&sidoName=${encodeURIComponent('전국')}&ver=1.0`
+  axios.get(url).then(r => {
+    console.log(r.data)
+    return db.ref('dust').child('items').set(r.data.response)
+  }).catch((err) => {
+    console.log(err)
+    return null
+  })
 })
