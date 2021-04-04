@@ -136,8 +136,8 @@ export default {
       console.log(snapshot.val())
       this.data = Object.values(snapshot.val())
     })
-    let kakao = await this.$firebase.firestore().collection('keys').doc('kakao').get()
-    kakao = kakao.data()
+    let kakao = await this.db.ref('keys').child('kakao').get()
+    kakao = kakao.val()
     const kakaoKey = {}
     kakaoKey.js = this.decode(kakao.js)
     kakaoKey.rest = this.decode(kakao.rest)

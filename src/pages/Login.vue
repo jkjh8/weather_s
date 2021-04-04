@@ -106,7 +106,19 @@ export default {
       this.$firebase.auth().languageCode = 'ko'
       try {
         const u = await this.$firebase.auth().signInWithPopup(provider)
-        this.getUserData(u.user.uid)
+        const r = await this.getUserData(u.user.uid)
+        console.log(r)
+        if (!r) {
+          this.$q.notify({
+            timeout: 1000,
+            color: 'positive',
+            message: '다시 로그인 해주세요',
+            caption: '자동으로 가입 되었습니다.',
+            icon: 'report_problem',
+            position: 'center',
+            actions: [{ icon: 'close', color: 'white' }]
+          })
+        }
         this.$router.push('/')
       } catch (err) {
         this.hideLoading()

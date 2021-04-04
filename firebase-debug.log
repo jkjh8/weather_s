@@ -1,0 +1,100 @@
+[debug] [2021-04-03T03:45:59.697Z] ----------------------------------------------------------------------
+[debug] [2021-04-03T03:45:59.699Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jkjh8\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2021-04-03T03:45:59.699Z] CLI Version:   9.6.1
+[debug] [2021-04-03T03:45:59.699Z] Platform:      win32
+[debug] [2021-04-03T03:45:59.699Z] Node Version:  v12.22.0
+[debug] [2021-04-03T03:45:59.701Z] Time:          Sat Apr 03 2021 12:45:59 GMT+0900 (GMT+09:00)
+[debug] [2021-04-03T03:45:59.701Z] ----------------------------------------------------------------------
+[debug] [2021-04-03T03:45:59.701Z] 
+[debug] [2021-04-03T03:45:59.709Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-04-03T03:45:59.710Z] > authorizing via signed-in user
+[debug] [2021-04-03T03:45:59.710Z] [iam] checking project weatherpicker for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2021-04-03T03:45:59.712Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-04-03T03:45:59.713Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-04-03T03:46:00.057Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","date":"Sat, 03 Apr 2021 03:45:54 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-04-03T03:46:00.068Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/weatherpicker:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2021-04-03T03:46:01.061Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:45:55 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=802","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-04-03T03:46:01.062Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/weatherpicker/serviceAccounts/weatherpicker@appspot.gserviceaccount.com:testIamPermissions  
+ {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2021-04-03T03:46:02.251Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:45:57 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'weatherpicker'...
+[info] 
+[info] i  deploying functions 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2021-04-03T03:46:07.025Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/weatherpicker/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2021-04-03T03:46:07.026Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/weatherpicker/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2021-04-03T03:46:07.026Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/weatherpicker/services/cloudbuild.googleapis.com  
+ 
+[debug] [2021-04-03T03:46:08.381Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2021-04-03T03:46:08.417Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2021-04-03T03:46:08.418Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-04-03T03:46:08.419Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/weatherpicker/adminSdkConfig  
+ 
+[debug] [2021-04-03T03:46:09.280Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:04 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  functions: preparing functions directory for uploading... 
+[debug] [2021-04-03T03:46:09.282Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/weatherpicker/configs  
+ 
+[debug] [2021-04-03T03:46:09.800Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:04 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  functions: packaged functions (24.82 KB) for uploading 
+[info] i  scheduler: ensuring required API cloudscheduler.googleapis.com is enabled... 
+[info] i  pubsub: ensuring required API pubsub.googleapis.com is enabled... 
+[debug] [2021-04-03T03:46:10.170Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/weatherpicker/services/cloudscheduler.googleapis.com  
+ 
+[debug] [2021-04-03T03:46:10.170Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/weatherpicker/services/pubsub.googleapis.com  
+ 
+[debug] [2021-04-03T03:46:11.451Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:06 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  scheduler: required API cloudscheduler.googleapis.com is enabled 
+[debug] [2021-04-03T03:46:11.585Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:06 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  pubsub: required API pubsub.googleapis.com is enabled 
+[debug] [2021-04-03T03:46:11.587Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "12"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
+    "firebase-admin": "^9.2.0",
+    "firebase-functions": "^3.11.0",
+    "moment": "^2.29.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2021-04-03T03:46:11.589Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/weatherpicker/locations/-/functions  
+ 
+[debug] [2021-04-03T03:46:12.424Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-04-03T03:46:12.425Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/weatherpicker/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2021-04-03T03:46:13.446Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 03 Apr 2021 03:46:08 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-04-03T03:46:13.447Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-cd1a5361-d271-4dd8-8399-a41cbb61d74d/373445e8-5381-450e-bb38-717faf3887f9.zip?GoogleAccessId=service-426973063396@gcf-admin-robot.iam.gserviceaccount.com&Expires=1617423368&Signature=HHRtjl7AnYrtub5rNQUkiya%2Fgf87Qo%2F3uwYY8r7I2hfvYELTb2tjvXA8azZjOHI8zHMZwGUlpYoPE3pFejjxO4dyhw9dDbyJZHbNpeaOYwaBe3d4x3Pt0yXyw%2FZeIUsRnygDasDbQ2JSnh0jK7vqOJrL%2FuuX2ZB9tAZzsQBbtH3jJCMX47M7XP9iWm1z55WEgJ%2Bxt7Hu1fOYMgfrfZRC0fL6lzu23YBZEZ18hIm7%2Fsv%2B5EblTUcGqHlGYGwYpc%2BKjc0Dpc4OvEcLItHbqbjsi9yAmfVVm6Z57uJBmnabKJdXliEuEUj00tSKsx6cU9c%2BC5wAQNP0IIgLU28li4mzQg%3D%3D  
+ <request body omitted>
+[debug] [2021-04-03T03:46:13.819Z] <<< HTTP RESPONSE 200 {"x-guploader-uploadid":"ABg5-UzI2_Q8qegLl7h_aQoFSc32qH-sHh91HJFtnqBTDytmb2IRFvnhjgfUAKepKCc3W65Sx0be_VdyB6TwSJTUVfQbyjF-qg","etag":"\"6b66b95e24d886005b12958c6b165a54\"","x-goog-generation":"1617421568703306","x-goog-metageneration":"1","x-goog-hash":"crc32c=FJ+9fA==, md5=a2a5XiTYhgBbEpWMaxZaVA==","x-goog-stored-content-length":"25416","x-goog-stored-content-encoding":"identity","vary":"Origin","content-length":"0","date":"Sat, 03 Apr 2021 03:46:08 GMT","server":"UploadServer","content-type":"text/html; charset=UTF-8","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""}
+[info] +  functions: functions folder uploaded successfully 
+[info] 
+The following functions are found in your project but do not exist in your local source code:
+	getDust(us-central1)
+
+If you are renaming a function or changing its region, it is recommended that you create the new function first before deleting the old one to prevent event loss. For more info, visit https://firebase.google.com/docs/functions/manage-functions#modify
+

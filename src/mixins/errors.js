@@ -61,5 +61,16 @@ export default {
         actions: [{ icon: 'close', color: 'white' }]
       })
     }
+  },
+  userSignin () {
+    this.$q.notify({
+      timeout: 1000,
+      color: 'positive',
+      message: '다시 로그인 해주세요',
+      caption: '자동으로 가입 되었습니다..',
+      icon: 'report_problem',
+      position: 'center',
+      actions: [{ icon: 'close', color: 'white' }]
+    })
   }
 }
