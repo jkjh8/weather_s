@@ -133,7 +133,6 @@ export default {
     this.db = this.$firebase.database()
     const newStation = this.db.ref('stations')
     newStation.on('value', (snapshot) => {
-      console.log(snapshot.val())
       this.data = Object.values(snapshot.val())
     })
     let kakao = await this.db.ref('keys').child('kakao').get()
@@ -151,13 +150,10 @@ export default {
         const data = new Uint8Array(e.target.result)
         const excelFile = XLSX.read(data, { type: 'array' })
         this.result = XLSX.utils.sheet_to_json(excelFile.Sheets.Sheet1)
-        console.log(this.result)
       }
       reader.readAsArrayBuffer(file)
-      console.log('file pick')
     },
     async upload () {
-      console.log(this.$store.state.keys.kakao.rest)
       const stations = {}
       for (let i = 0; i < this.result.length; i++) {
         const station = this.result[i]
@@ -175,7 +171,6 @@ export default {
         station.updateAt = Date.now()
         stations[station.name] = station
       }
-      console.log(stations)
       return this.db.ref('stations').update(stations)
     },
     handleFiles (file) {
@@ -190,7 +185,6 @@ export default {
     edit (item) {
       this.current = item
       this.popupAddr = true
-      console.log(item)
     },
     async searchPlace () {
       const place = await this.$axios.get(

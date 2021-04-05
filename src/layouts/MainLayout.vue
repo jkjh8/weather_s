@@ -10,6 +10,10 @@
         </q-toolbar-title>
 
         <div v-if="user&&user.level === 0">
+          <q-btn flat to="/dust">Dust</q-btn>
+        </div>
+
+        <div v-if="user&&user.level === 0">
           <q-btn flat to="/station">Station</q-btn>
         </div>
 

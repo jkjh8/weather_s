@@ -107,7 +107,6 @@ export default {
       try {
         const u = await this.$firebase.auth().signInWithPopup(provider)
         const r = await this.getUserData(u.user.uid)
-        console.log(r)
         if (!r) {
           this.$q.notify({
             timeout: 1000,

@@ -158,8 +158,7 @@ export default {
       // })
     },
     decode (data) {
-      const result = Crypto.AES.decrypt(data, 'password').toString(Crypto.enc.Utf8)
-      console.log('uuid', result)
+      return Crypto.AES.decrypt(data, 'password').toString(Crypto.enc.Utf8)
     }
   }
 }

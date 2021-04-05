@@ -77,7 +77,6 @@ export default {
       })
     },
     async enable (uid, value) {
-      console.log(uid)
       this.db.ref('users').child(uid).update({ enable: value })
         .then(res => {
           this.getUserInfo()

@@ -154,3 +154,22 @@ exports.scheduledFunction = functions.pubsub.schedule('16 * * * *').timeZone('As
     return null
   })
 })
+
+exports.getDustAll = functions.https.onCall(async () => {
+  const k = await db.ref('keys').child('data').child('key').get()
+  const dataKey = decode(k.val())
+  const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?ServiceKey=${dataKey}&returnType=json&numOfRows=1000&pageNo=1&sidoName=${encodeURIComponent('전국')}&ver=1.0`
+  axios.get(url).then((r) => {
+    const now = moment().format()
+    const rt = {}
+    const items = r.data.response.body.items
+    for (let i = 0; i < items.length; i++) {
+      rt[items[i].stationName] = items[i]
+    }
+    db.ref('dust').child('updatedAt').set(now)
+    return db.ref('dust').child('stations').set(rt)
+  }).catch((err) => {
+    console.log(err)
+    return null
+  })
+})

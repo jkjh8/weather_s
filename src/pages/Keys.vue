@@ -67,7 +67,6 @@ export default {
     async getKeys () {
       const d = await this.db.ref('keys').child('data').get()
       const k = await this.db.ref('keys').child('kakao').get()
-      console.log(d)
       if (d.exists() && k.exists()) {
         const data = d.val()
         this.datakey = data.key
